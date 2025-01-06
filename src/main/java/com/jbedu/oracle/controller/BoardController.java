@@ -1,5 +1,6 @@
 package com.jbedu.oracle.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -7,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.jbedu.oracle.dao.BoardDao;
+import com.jbedu.oracle.dao.MemberDao;
+import com.jbedu.oracle.dto.MemberDto;
 
 @Controller
 public class BoardController {
@@ -22,13 +27,29 @@ public class BoardController {
 			model.addAttribute("msg", "로그인한 회원만 글쓰기가 가능합니다.");
 			model.addAttribute("url", "login");
 			return "alert";
-		} else {
-			model.addAttribute("loginId", sessionId);
-			model.addAttribute("mname", sessionId);
+		} 
+
+		MemberDao dao = sqlSession.getMapper(MemberDao.class);
+		MemberDto memberDto = dao.memberInfoDao(sessionId);
 			
-		}
-		
+		model.addAttribute("loginId", sessionId);
+		model.addAttribute("memberName", memberDto.getMname());
 		
 		return "writeForm";
+	}
+	
+	@RequestMapping(value="/write")
+	public String Write(HttpServletRequest request, Model model) {
+		
+		String bid = request.getParameter("bid");
+		String bname = request.getParameter("bname");
+		String btitle = request.getParameter("btitle");
+		String bcontent = request.getParameter("bcontent");
+		
+		BoardDao dao = sqlSession.getMapper(BoardDao.class);
+		
+		dao.writeDao(bid, bname, btitle, bcontent);
+		
+		return "redirect:list";
 	}
 }

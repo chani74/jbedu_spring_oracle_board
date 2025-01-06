@@ -1,21 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="utf-8">
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>°Ô½ÃÆÇ ±Û¾²±â</h2>
+	<h2>ê²Œì‹œíŒ ê¸€ì“°ê¸°</h2>
 	<hr>
 	<form action="write">
-		¾ÆÀÌµð: <input type="text" name="bid" value="${loginId}" }><br><br>
-		ÀÛ¼ºÀÚ : <input type="text" name="bname" ><br><br>
-		±ÛÁ¦¸ñ : <input type="text" name="btitle" ><br><br>
-		±Û³»¿ë : <textarea rows=5 cols="50" name="bcontent"></textarea><br><br>
-		<input type="submit" value="±ÛÀÔ·Â">
-		<input type="button" value="Ãë¼Ò">
+		ì•„ì´ë””: <input type="text" name="bid" value="${loginId}" readonly="readonly"><br><br>
+		ìž‘ì„±ìž : <input type="text" name="bname" value="${memberName}" readonly="readonly" ><br><br>
+		ê¸€ì œëª© : <input type="text" name="btitle" ><br><br>
+		ê¸€ë‚´ìš© : <textarea rows=5 cols="50" name="bcontent"></textarea><br><br>
+		<input type="submit" value="ê¸€ìž…ë ¥">
+		<input type="button" value="ì·¨ì†Œ">
 		
 	
 	</form>
