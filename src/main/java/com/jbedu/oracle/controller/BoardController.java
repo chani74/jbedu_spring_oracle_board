@@ -1,5 +1,7 @@
 package com.jbedu.oracle.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jbedu.oracle.dao.BoardDao;
 import com.jbedu.oracle.dao.MemberDao;
+import com.jbedu.oracle.dto.BoardDto;
 import com.jbedu.oracle.dto.MemberDto;
 
 @Controller
@@ -51,5 +54,15 @@ public class BoardController {
 		dao.writeDao(bid, bname, btitle, bcontent);
 		
 		return "redirect:list";
+	}
+	
+	@RequestMapping(value="/list")
+	public String list(HttpServletRequest request, Model model) {
+
+		BoardDao dao = sqlSession.getMapper(BoardDao.class);
+		ArrayList<BoardDto> boardDtos = dao.listDao();
+		model.addAttribute("boardList", boardDtos);
+		
+		return "boardList";
 	}
 }
