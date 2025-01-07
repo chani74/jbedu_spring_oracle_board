@@ -9,4 +9,6 @@ public interface BoardDao {
 
 	public void writeDao(String bid, String bname, String btitle, String bcontent); //게시판 글쓰기
 	public ArrayList<BoardDto> listDao();
+	public BoardDto contentDao(String bnum);
+	
 }

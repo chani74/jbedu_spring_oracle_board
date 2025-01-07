@@ -65,4 +65,20 @@ public class BoardController {
 		
 		return "boardList";
 	}
+	
+	@RequestMapping(value="/content_view")
+	public String content_view(HttpServletRequest request, Model model) {
+		BoardDao dao = sqlSession.getMapper(BoardDao.class);
+		String bnum = request.getParameter("bnum");
+		BoardDto boardDto =  dao.contentDao(bnum);
+		
+		if (boardDto==null) {
+			model.addAttribute("msg", "존재하지 않는 글 입니다.");
+			model.addAttribute("url", "list");
+			return ("alert");
+		}
+		
+		model.addAttribute("boardDto", boardDto);
+		return "contentView";
+	}
 }

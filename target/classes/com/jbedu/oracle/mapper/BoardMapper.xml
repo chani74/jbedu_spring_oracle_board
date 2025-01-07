@@ -14,4 +14,10 @@
     	<select id="listDao" resultType="com.jbedu.oracle.dto.BoardDto">
     		SELECT * FROM Boardtbl ORDER BY bnum DESC
     	</select>
+    	
+    	<!-- 글 보기  -->
+    	<select id ="contentDao" resultType="com.jbedu.oracle.dto.BoardDto">
+    		SELECT * FROM boardtbl WHERE bnum=#{param1}
+    	</select>
+    	
     </mapper>
