@@ -30,7 +30,11 @@
 		<td>${boardDto.bhit }</td>
 	</tr>
 	</c:forEach>
-	
+	<tr>
+		<td colspan=5>
+			<input type="button" value="글쓰기" onClick="javascript:location.href='write_form';">
+		</td>
+	</tr>
 	</table>
 </body>
 </html>
