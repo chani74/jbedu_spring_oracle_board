@@ -20,4 +20,22 @@
     		SELECT * FROM boardtbl WHERE bnum=#{param1}
     	</select>
     	
+    	<!-- 글 수정 -->
+    	<update id="modifyDao" >
+    		UPDATE boardtbl 
+    			SET btitle = #{param2},
+    			 bcontent = #{param3}
+    				
+    		WHERE bnum=#{param1}
+    	</update>
+    	
+    	<!-- 글 삭제 -->
+    	<delete id="deleteDao">
+    		DELETE FROM boardtbl WHERE bnum=#{param1}
+    	</delete>
+    	
+    	<!-- 조회 수	 -->
+    	<update id ='bhitDao'>
+    		UPDATE boardtbl set bhit = bhit + 1 WHERE bnum=#{param1}
+    	</update>
     </mapper>

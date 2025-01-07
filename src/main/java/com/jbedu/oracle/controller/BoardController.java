@@ -70,6 +70,10 @@ public class BoardController {
 	public String content_view(HttpServletRequest request, Model model) {
 		BoardDao dao = sqlSession.getMapper(BoardDao.class);
 		String bnum = request.getParameter("bnum");
+
+		// 조회 수 증가 하기
+		dao.bhitDao(bnum);
+		
 		BoardDto boardDto =  dao.contentDao(bnum);
 		
 		if (boardDto==null) {
@@ -80,5 +84,67 @@ public class BoardController {
 		
 		model.addAttribute("boardDto", boardDto);
 		return "contentView";
+	}
+	
+	@RequestMapping(value="content_modify")
+	public String content_modify(HttpServletRequest request, Model model) {
+		
+		BoardDao dao = sqlSession.getMapper(BoardDao.class);
+		String bnum = request.getParameter("bnum");
+		
+		
+		BoardDto boardDto =  dao.contentDao(bnum);
+		
+		if (boardDto==null) {
+			model.addAttribute("msg", "존재하지 않는 글 입니다.");
+			model.addAttribute("url", "list");
+			return ("alert");
+		}
+		
+		model.addAttribute("boardDto", boardDto);
+		return "contentModify";
+	}
+	
+	
+	@RequestMapping(value="/modifyOk")
+	public String modifyOk(HttpServletRequest request, Model model) {
+		
+		String bnum = request.getParameter("bnum");
+		String btitle = request.getParameter("btitle");
+		String bcontent = request.getParameter("bcontent");
+		
+		BoardDao dao = sqlSession.getMapper(BoardDao.class);
+		int modifyFlag = dao.modifyDao(bnum, btitle, bcontent);
+		
+		if (modifyFlag != 1) {
+			model.addAttribute("msg", "글 수정에 실패하였습니다. 다시 시도 바랍니다.");
+			model.addAttribute("url", "list");
+			return ("alert");			
+		} else {
+			model.addAttribute("msg", "글 수정이 완료 되었습니다.");
+			model.addAttribute("url", "list");
+			return ("alert");
+		}
+		
+	}
+	
+	@RequestMapping(value="/deleteOk")
+	public String deleteOk(HttpServletRequest request, Model model) {
+		
+		String bnum = request.getParameter("bnum");
+		
+		BoardDao dao = sqlSession.getMapper(BoardDao.class);
+		int deleteFlag = dao.deleteDao(bnum);
+		
+		if (deleteFlag != 1) {
+			model.addAttribute("msg", "글 삭제에 실패하였습니다. 다시 시도 바랍니다.");
+			model.addAttribute("url", "list");
+			return ("alert");			
+		} else {
+			model.addAttribute("msg", "글 삭제가 완료 되었습니다.");
+			model.addAttribute("url", "list");
+			return ("alert");
+		}
+		
 	}
 }
